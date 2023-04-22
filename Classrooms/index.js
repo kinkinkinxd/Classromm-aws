@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-var url = 'mongodb://localhost:27017/';
+// var url = 'mongodb://localhost:27017/';
+const url = 'mongodb+srv://kinkinkinxd:kin324979@classroomms.thgmcpf.mongodb.net/ClassroomMS?retryWrites=true&w=majority'
 
 app.post('/create_class', async (req, res) => {
     const classId = randomBytes(3).toString('hex');

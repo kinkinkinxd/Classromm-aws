@@ -1,0 +1,86 @@
+version: '3'
+networks:
+    appNetwork:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.21.0.0/16"
+services:
+  mongodb:
+    build: 
+      context: Database
+      dockerfile: Dockerfile
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db        
+    networks:
+       appNetwork:
+          ipv4_address: 172.21.0.2
+  auth:
+    build:
+      context: Auth
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    command: sh -c "npm i && npm start"
+    depends_on:
+      - mongodb
+    networks:
+       appNetwork:
+          ipv4_address: 172.21.0.3
+  classrooms:
+    build:
+      context: Classrooms
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    command: sh -c "npm i && npm start"
+    depends_on:
+      - mongodb
+    networks:
+       appNetwork:
+          ipv4_address: 172.21.0.4
+  client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: sh -c "npm i && npm start"
+    depends_on:
+      - mongodb
+    networks:
+       appNetwork:
+          ipv4_address: 172.21.0.5
+  event-bus:
+    build:
+      context: event-bus
+      dockerfile: Dockerfile
+    ports:
+      - "4009:4009"
+    command: sh -c "npm i && npm start"
+    depends_on:
+      - mongodb
+    networks:
+       appNetwork:
+          ipv4_address: 172.21.0.6
+  post:
+    build:
+      context: Post
+      dockerfile: Dockerfile
+    ports:
+      - "4002:4002"
+    command: sh -c "npm i && npm start"
+    depends_on:
+      - mongodb
+    networks:
+       appNetwork:
+          ipv4_address: 172.21.0.7
+  
+     
+volumes:
+  mongodb_data:
+
+    

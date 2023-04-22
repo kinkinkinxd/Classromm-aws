@@ -1,15 +1,18 @@
 # A simple google classroom clone using microservices architecture and MERN stack
 
-## Event bus implementation
-![](Images/runs.png)
+This is a Javascript doing some microservices for 01219449-2023 Principles of Software Architecture class
 
-## Signup and Login
-![](Images/signup.png)
+## Getting Started
 
-![](Images/login.png)
+First, run the development server:
 
-## Creating classes
-![](Images/classes.png)
+```
+npm install
 
-## Post and Comments
-![](Images/post.png)
+npm start
+```
+
+Open [http://localhost:3000/login](http://localhost:3000/login) with your browser to see the result.
+
+
+## Learn More

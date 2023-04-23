@@ -10,9 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// var url = 'mongodb://localhost:27017'
+
 const url = 'mongodb+srv://kinkinkinxd:kin324979@classroomms.thgmcpf.mongodb.net/ClassroomMS?retryWrites=true&w=majority'
-// const url = MONGODB_URL
+ 
+
 app.post('/create_post', async (req, res) => {
     const id = randomBytes(6).toString('hex');
     const { classId, postTitle } = req.body;
@@ -30,7 +31,7 @@ app.post('/create_post', async (req, res) => {
         db.close();
     });
 
-    await axios.post('http://localhost:4009/events', {
+    await axios.post('http://event-bus:4009/events', {
         type: 'PostCreated',
         data: 'postid'
     });
@@ -65,7 +66,6 @@ app.post('/add_comment', async (req, res) => {
         db.close();
     })
 
-    console.log(posts[data.class]);
 })
 
 app.get('/get_posts/:id', async (req, res) => {

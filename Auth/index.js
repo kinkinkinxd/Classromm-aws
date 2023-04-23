@@ -3,15 +3,16 @@ const bodyParser = require('body-parser');
 const { randomBytes, sign } = require('crypto');
 const axios = require('axios');
 const cors = require('cors');
-const MongoClient = require('mongodb').MongoClient;
+const {MongoClient} = require('mongodb')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// var url = 'mongodb://localhost:27017/';
+
 const url = 'mongodb+srv://kinkinkinxd:kin324979@classroomms.thgmcpf.mongodb.net/ClassroomMS?retryWrites=true&w=majority'
+
 
 app.post('/signup', async (req, res) => {
     const id = randomBytes(4).toString('hex');
@@ -39,7 +40,7 @@ app.post('/signup', async (req, res) => {
         });
     });
 
-    await axios.post('http://localhost:4009/events', {
+    await axios.post('http://event-bus:4009/events', {
         type: 'UserCreated',
         data: {
             id, email
@@ -82,3 +83,5 @@ app.post('/events', (req, res) => {
 app.listen(4000, () => {
     console.log('Authentication Server listening at port 4000...');
 })
+
+

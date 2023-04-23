@@ -1,67 +1,93 @@
 version: '3'
 services:
-  mongodb:
-    image: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    networks:
-      - appNetwork
-  auth:
-    build:
-      context: Auth
-      dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
-    depends_on:
-      - mongodb
-    networks:
-      - appNetwork
-  classrooms:
-    build:
-      context: Classrooms
-      dockerfile: Dockerfile
-    ports:
-      - "4001:4001"
-    depends_on:
-      - mongodb
-    networks:
-      - appNetwork
+  # mongo:
+  #   image: mongo
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=mongo
+  #     - MONGO_INITDB_ROOT_PASSWORD=password
+  #   volumes:
+  #     - mongo-db:/data/db
+  #   ports:
+  #     - '27017:27017'
   client:
     build:
       context: client
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongo
     networks:
       - appNetwork
+    # environment:
+    #   - MONGO_USER=mongo
+    #   - MONGO_PASSWORD=password
+    #   - MONGO_IP=localhost
+      # - MONGO_PORT=27017
   event-bus:
     build:
       context: event-bus
       dockerfile: Dockerfile
     ports:
       - "4009:4009"
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongo
     networks:
       - appNetwork
+    # environment:
+    #   - MONGO_USER=mongo
+    #   - MONGO_PASSWORD=password
+    #   - MONGO_IP=localhost
+      # - MONGO_PORT=27017
+  auth:
+    build:
+      context: Auth
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    # depends_on:
+    #   - mongo
+    networks:
+      - appNetwork
+    # environment:
+    #   - MONGO_USER=mongo
+    #   - MONGO_PASSWORD=password
+    #   - MONGO_IP=localhost
+    #   - MONGO_PORT=27017
+  classrooms:
+    build:
+      context: Classrooms
+      dockerfile: Dockerfile
+    ports:
+      - "4001:4001"
+    # depends_on:
+    #   - mongo
+    networks:
+      - appNetwork
+    # environment:
+    #   - MONGO_USER=mongo
+    #   - MONGO_PASSWORD=password
+    #   - MONGO_IP=localhost
+      # - MONGO_PORT=27017
   post:
     build:
       context: Post
       dockerfile: Dockerfile
     ports:
       - "4002:4002"
-    depends_on:
-      - mongodb
+    # depends_on:
+    #   - mongo
     networks:
       - appNetwork
+    # environment:
+    #   - MONGO_USER=mongo
+    #   - MONGO_PASSWORD=password
+    #   - MONGO_IP=localhost
+    #   - MONGO_PORT=27017
 
 networks:
   appNetwork:
     driver: bridge
 
-volumes:
-  mongodb_data:
+# volumes:
+#   mongo-db:

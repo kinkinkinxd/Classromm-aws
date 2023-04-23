@@ -72,7 +72,7 @@ const Auth = (props) => {
               type="text"
               onChange={e => setEmail(e.target.value)}
               required
-              placeholder="Email ID"
+              placeholder="Username"
             />
             <input
               value={password}

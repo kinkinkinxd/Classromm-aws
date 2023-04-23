@@ -19,7 +19,6 @@ const Posts = () => {
     setPosts(res.data);
     setPostTitle("");
 
-    // eslint-disable-next-line array-callback-return
     Object.values(res.data).map(post => {
       comments[post.id] = "";
     });
@@ -86,7 +85,7 @@ const Posts = () => {
     };
     
     fetchPosts();
-  });
+  }, []);
 
   return (
     <div className={styles.centerPosts}>

@@ -41,7 +41,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchClasses();
-  });
+  }, []);
 
   var renderedClasses = <div></div>;
   if (Object.keys(classes).length > 0) {
